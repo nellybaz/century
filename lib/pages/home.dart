@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 import './single_movie.dart';
 
-class Home extends StatelessWidget{
+import './dashboard.dart';
+
+class Home extends StatefulWidget{
+
+  @override
+    State<StatefulWidget> createState() {
+      return _HomeState();
+    }
+
+//to determine what actions to display depending on the user priviledges
+  final bool isAdmin;
+  Home(this.isAdmin);
+  
+  
+// holding all movies to display
   List<Movies> movie_names = [
   new Movies('Last Man on Earth', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
   new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
@@ -20,12 +34,13 @@ class Home extends StatelessWidget{
 
   ];
 
+ 
 
  
  
-
+// a function that populates a list of widget with all Movies object, to display on the screen
   List _populateMoviesList(){
-    //sort the array in alpabetical order
+
      movie_names.sort((a,b)=> a.movie_title.compareTo(b.movie_title) );
      
       List<Widget> final_movies_list = [];
@@ -56,7 +71,7 @@ class Home extends StatelessWidget{
               onPressed: (){
                 print(x);
                 
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SingleMovie()),);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SingleMovie(movie_names[x])),);
               },
               child: Column(
               children: <Widget>[
@@ -114,9 +129,24 @@ Text( 'Showing:', style: TextStyle(
       return final_movies_list;
   }
 
+
+
+}
+
+class _HomeState extends State<Home>{
+
+  // a function that populates the movies list by adding new movie object to it
+   popMoviesList(title, des, time){
+      Movies newMovie = new Movies(title, des, time="Wed 12th July 2019 10:10 AM");
+
+      widget.movie_names.add(newMovie);
+  }
+
   @override
     Widget build(BuildContext context) {
-      return CustomScrollView(
+      return Stack(
+        children: <Widget>[
+CustomScrollView(
         scrollDirection: Axis.vertical,
     slivers: <Widget>[
       SliverAppBar(
@@ -133,16 +163,37 @@ Text( 'Showing:', style: TextStyle(
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 10.0,
         crossAxisCount: 2,
-        children: _populateMoviesList(),
+        children: widget._populateMoviesList(),
       ),
     ),
-
   
     ],
-);
+
+    
+),
+  widget.isAdmin ? new Positioned(
+            //top: 200.0,
+            bottom: 0.0,
+            right: 16.0,
+            child: new FloatingActionButton(
+              backgroundColor: Colors.deepPurpleAccent,
+              onPressed: () {
+
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Dashboard(popMoviesList)));
+              },
+              child: new Icon(Icons.menu, color: Colors.white,),
+            )) : Text(''),
+                
+    
+     
+       
+        ],
+      );
     }
 }
 
+
+//Movie class for my movies list
 
 class Movies{
 

@@ -2,15 +2,33 @@ import 'package:flutter/material.dart';
 import './pages/login.dart';
 import './pages/home.dart';
 
-class Control extends StatelessWidget{
+class Control extends StatefulWidget{
+ 
+  Control();
+
+  @override
+    State<StatefulWidget> createState() {
+  
+      return _ControlState();
+    }
+
+    
 
   //boolean to determine which page to render on app launch
-  final isUserLoggedIn = true;
+  bool isUserLoggedIn = true;
+   bool isAdmin = false;
+
+
+}
+
+class _ControlState extends State<Control>{
+
+
 
   @override
     Widget build(BuildContext context) {
       return Scaffold(
-        body: isUserLoggedIn ? Login(): Home(),
+        body: widget.isUserLoggedIn ? Login(): Home(true),
       );
     }
 }
