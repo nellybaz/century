@@ -4,7 +4,8 @@ import './addmovie.dart';
 
 class Dashboard extends StatelessWidget{
   final popMovieList;
-  Dashboard(this.popMovieList);
+  final isAdmin;
+  Dashboard(this.popMovieList, this.isAdmin);
 
     @override
     Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class Dashboard extends StatelessWidget{
               
               child: Column(
                 children: <Widget>[
-                  Row(
+                  isAdmin ? Row(
                     children: <Widget>[
                       Expanded(
                         flex: 1,
@@ -38,6 +39,29 @@ class Dashboard extends StatelessWidget{
                              Expanded(
                                flex: 7,
                                child:  Text('ADD MOVIE'),
+                             )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ): Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: FlatButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> AddMovie(popMovieList)));
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Icon(Icons.favorite),
+                              ),
+                             Expanded(
+                               flex: 7,
+                               child:  Text('FAVOURITES'),
                              )
                             ],
                           ),

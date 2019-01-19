@@ -51,7 +51,9 @@ class _AddMovieState extends State<AddMovie> {
                           InputDecoration(labelText: 'Movie Description'),
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: ' Showing Time e.g Wed 12th 2019 10:10 AM'),
+                      decoration: InputDecoration(
+                          labelText:
+                              ' Showing Time e.g Wed 12th 2019 10:10 AM'),
                     ),
                     Row(
                       children: <Widget>[
@@ -88,10 +90,32 @@ class _AddMovieState extends State<AddMovie> {
                                     widget.movieDescription =
                                         myDescriptionController.text;
                                   });
+                                  widget.addMovie(widget.movieTitle,
+                                      widget.movieDescription, '10:10 AM');
 
-                                 
-                                    widget.addMovie(widget.movieTitle, widget.movieDescription, '10:10 AM');
-                                  Navigator.pop(context);
+                                  return showDialog(
+                                      context: context,
+                                      builder: (BuildContext build) {
+                                        return AlertDialog(
+                                          content: Text('MOVIE ADD'),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              onPressed: () {
+                                                
+                                                setState(() {
+                                                  myTitleController.text = '';
+                                                  myDescriptionController.text = '';
+
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context).pop();
+                                                                                              
+                                                                                                });
+                                              },
+                                              child: Text('OK'),
+                                            )
+                                          ],
+                                        );
+                                      });
                                 }
 
                                 // print(myController.text);

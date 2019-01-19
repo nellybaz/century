@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import './home.dart';
 
 class Login extends StatelessWidget {
+  
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,7 @@ class Login extends StatelessWidget {
                             fontWeight: FontWeight.w700)),
                   ),
                   TextFormField(
+                    controller: emailController,
                     
                     validator: (value) =>
                         !value.contains('@') ? 'Not a valid email.' : null,
@@ -41,6 +46,7 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: passwordController,
                     onSaved: (val) {},
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -59,15 +65,25 @@ class Login extends StatelessWidget {
                           padding: EdgeInsets.only(top:25.0),
                           child: RaisedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacementNamed('/home');
-
-                            Navigator.pushAndRemoveUntil(
+                              if((emailController.text == 'admin') && (passwordController.text == 'admin')){
+                                Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       Home(true)),
                               ModalRoute.withName('/login'),
                             );
+                              }
+
+                              else{
+                                 Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Home(false)),
+                              ModalRoute.withName('/login'),
+                            );
+                              }
                           },
                           child: Text('Login'),
                         ),

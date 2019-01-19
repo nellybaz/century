@@ -171,7 +171,7 @@ CustomScrollView(
 
     
 ),
-  widget.isAdmin ? new Positioned(
+  new Positioned(
             //top: 200.0,
             bottom: 0.0,
             right: 16.0,
@@ -179,10 +179,10 @@ CustomScrollView(
               backgroundColor: Colors.deepPurpleAccent,
               onPressed: () {
 
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Dashboard(popMoviesList)));
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Dashboard(popMoviesList, widget.isAdmin)));
               },
               child: new Icon(Icons.menu, color: Colors.white,),
-            )) : Text(''),
+            ))
                 
     
      
