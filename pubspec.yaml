@@ -42,6 +42,7 @@ flutter:
    - images/century_banner.jpg
    - images/movie2.jpg
    - images/movie1.jpg
+   - images/bg3.jpg
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './control.dart';
 
 import './pages/login.dart';
+import './pages/displayFavourite.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget{
         home: Control(),
         routes: <String, WidgetBuilder> {
     '/login': (BuildContext context) => new Login(),
-    // '/home' : (BuildContext context) => new Home(false),
+    '/favourite' : (BuildContext context) => new FavouriteDisplay([], 'string', [], true),
    
   },
       );

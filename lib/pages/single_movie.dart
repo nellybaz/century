@@ -3,21 +3,24 @@ import 'package:flutter/material.dart';
 
 class SingleMovie extends StatelessWidget{
   final movieObject;
-  SingleMovie(this.movieObject);
+  final isAdmin;
+  final addFav;
+  SingleMovie(this.movieObject, {this.isAdmin, this.addFav});
 
   @override
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
           title: Text(movieObject.movie_title),
-          actions: <Widget>[
+          actions: !isAdmin ? <Widget>[
             IconButton(
               icon: Icon(Icons.favorite, color: Colors.redAccent,),
               onPressed: (){
-                print('added as favourite');
+                // print('added as favourite');
+                addFav(movieObject.movie_id);
               },
             )
-          ],
+          ]: null,
         ),
         body: Material(
           child: Column(

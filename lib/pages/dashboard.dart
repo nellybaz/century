@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import './addmovie.dart';
+import './displayFavourite.dart';
+
+import './login.dart';
 
 
 class Dashboard extends StatelessWidget{
   final popMovieList;
   final isAdmin;
-  Dashboard(this.popMovieList, this.isAdmin);
+  final favList;
+  final deleteFav;
+  final movieList;
+
+  Dashboard(this.popMovieList, this.isAdmin, {this.favList, this.deleteFav, this.movieList});
 
     @override
     Widget build(BuildContext context) {
@@ -51,7 +58,7 @@ class Dashboard extends StatelessWidget{
                         flex: 1,
                         child: FlatButton(
                           onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> AddMovie(popMovieList)));
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> FavouriteDisplay(favList, deleteFav,movieList, isAdmin,)));
                           },
                           child: Row(
                             children: <Widget>[
@@ -61,7 +68,7 @@ class Dashboard extends StatelessWidget{
                               ),
                              Expanded(
                                flex: 7,
-                               child:  Text('FAVOURITES'),
+                               child:  Text(' MY FAVOURITES'),
                              )
                             ],
                           ),
@@ -69,29 +76,6 @@ class Dashboard extends StatelessWidget{
                       )
                     ],
                   ),
-
-                  //  Row(
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //       flex: 1,
-                  //       child: FlatButton(
-                  //         onPressed: (){},
-                  //         child: Row(
-                  //           children: <Widget>[
-                  //             Expanded(
-                  //               flex: 1,
-                  //               child: Icon(Icons.delete),
-                  //             ),
-                  //            Expanded(
-                  //              flex: 7,
-                  //              child:  Text('REMOVE MOVIE'),
-                  //            )
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     )
-                  //   ],
-                  // ),
                 ],
               ),
             ),

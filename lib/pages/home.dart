@@ -14,25 +14,42 @@ class Home extends StatefulWidget{
   final bool isAdmin;
   Home(this.isAdmin);
   
+  bool sendAuth(){
+    return isAdmin;
+  }
   
 // holding all movies to display
   List<Movies> movie_names = [
-  new Movies('Last Man on Earth', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
-  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM'),
+  new Movies('Last Man on Earth', 'Best Movies', 'Wed 12, 2019 11:30 AM', '1'),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '2'),
+  new Movies( 'Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '3',),
+  new Movies( 'Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '4', ),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '5',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '6',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '7',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '8',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '9',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '10',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '11',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '12',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '13',),
+  new Movies('Black Panther', 'Best Movies', 'Wed 12, 2019 11:30 AM', '14',),
 
   ];
+
+
+  List favouriteList = [];
+
+  addToFavourite(movieId){
+
+    favouriteList.add(movieId);
+
+  }
+  
+  deleteFavourite(movieId){
+      favouriteList.remove(movieId);
+
+  }
 
  
 
@@ -71,7 +88,7 @@ class Home extends StatefulWidget{
               onPressed: (){
                 print(x);
                 
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SingleMovie(movie_names[x])),);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SingleMovie(movie_names[x], isAdmin: isAdmin, addFav: addToFavourite)),);
               },
               child: Column(
               children: <Widget>[
@@ -136,10 +153,11 @@ Text( 'Showing:', style: TextStyle(
 class _HomeState extends State<Home>{
 
   // a function that populates the movies list by adding new movie object to it
-   popMoviesList(title, des, time){
-      Movies newMovie = new Movies(title, des, time="Wed 12th July 2019 10:10 AM");
+   popMoviesList(title, des, time, {id = '18'}){
+      Movies newMovie = new Movies(title, des, time="Wed 12th July 2019 10:10 AM", id);
 
       widget.movie_names.add(newMovie);
+
   }
 
   @override
@@ -179,7 +197,7 @@ CustomScrollView(
               backgroundColor: Colors.deepPurpleAccent,
               onPressed: () {
 
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Dashboard(popMoviesList, widget.isAdmin)));
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Dashboard(popMoviesList, widget.isAdmin, favList: widget.favouriteList, deleteFav: widget.deleteFavourite, movieList: widget.movie_names,)));
               },
               child: new Icon(Icons.menu, color: Colors.white,),
             ))
@@ -196,9 +214,9 @@ CustomScrollView(
 //Movie class for my movies list
 
 class Movies{
-
+  final movie_id;
   final movie_title;
   final movie_description;
   final showing_time;
-  Movies(this.movie_title, this.movie_description, this.showing_time);
+  Movies(this.movie_title, this.movie_description, this.showing_time, this.movie_id);
 }
